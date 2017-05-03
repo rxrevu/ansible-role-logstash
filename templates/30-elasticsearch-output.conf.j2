@@ -3,7 +3,7 @@ output {
     hosts => {{ logstash_elasticsearch_hosts | to_json }}
     if [type] == "syslog" {
       index => "syslog-%{+YYYY.MM.dd}"
-    else {
+    } else {
       index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
     }
     document_type => "%{[@metadata][type]}"

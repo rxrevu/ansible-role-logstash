@@ -1,11 +1,7 @@
 output {
   elasticsearch {
     hosts => {{ logstash_elasticsearch_hosts | to_json }}
-    if [@metadata][type] == "syslog" {
-      index => "syslog-%{+YYYY.MM.dd}"
-    } else {
-      index => "%{[@metadata][beat]}-%{+YYYY.MM.dd}"
-    }
+    index => "%{[type]}-%{+YYYY.MM.dd}"
     document_type => "%{[@metadata][type]}"
     user => "{{ elasticsearch_user }}"
     password => "{{ elasticsearch_password }}"
